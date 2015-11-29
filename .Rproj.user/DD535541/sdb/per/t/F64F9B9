@@ -1,0 +1,17 @@
+{
+    "contents" : "library(dplyr)\nlibrary(rgdal)\nlibrary(sp)\n\nHKG0 <- readRDS(\"data/HKG_adm0.rds\")\nHKG1 <- readRDS(\"data/HKG_adm1.rds\")\n\n#HKG0 <- readOGR(\"data/HKG_adm_shp/HKG_adm0.shp\", layer= \"HKG_adm0\")\n#HKG1 <- readOGR(\"data/HKG_adm_shp/HKG_adm1.shp\", layer= \"HKG_adm1\")\n\nallzips <- readRDS(\"data/superzip.rds\")\nallzips$latitude <- jitter(allzips$latitude)\nallzips$longitude <- jitter(allzips$longitude)\nallzips$college <- allzips$college * 100\nallzips$zipcode <- formatC(allzips$zipcode, width=5, format=\"d\", flag=\"0\")\nrow.names(allzips) <- allzips$zipcode\n\ncleantable <- allzips %>%\n  select(\n    City = city.x,\n    State = state.x,\n    Zipcode = zipcode,\n    Rank = rank,\n    Score = centile,\n    Superzip = superzip,\n    Population = adultpop,\n    College = college,\n    Income = income,\n    Lat = latitude,\n    Long = longitude\n  )\n\nallzips[allzips$zipcode == \"01001\",]\n",
+    "created" : 1448719489991.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3271458909",
+    "id" : "F64F9B9",
+    "lastKnownWriteTime" : 1448809841,
+    "path" : "C:/Users/kitto/Desktop/Work/workspace/R/063-superzip-example/global.R",
+    "project_path" : "global.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
